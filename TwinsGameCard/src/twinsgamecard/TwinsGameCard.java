@@ -1,21 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package twinsgamecard;
 
+import twinsgamecard.Classes.Deck;
+
 /**
- *
- * @author Toni
+ * @author ToniMinarro (antonio_jose91@hotmail.es)
  */
+
 public class TwinsGameCard {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
+        
+        Deck twinsDeck = new Deck();
+        twinsDeck.createTwinsDeck(40, 2);
     }
-    
 }
