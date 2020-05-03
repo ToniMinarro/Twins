@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.border.Border;
 import twinsgamecard.Classes.Deck;
 import twinsgamecard.Classes.Funciones;
-import twinsgamecard.Classes.TestPane;
+import twinsgamecard.Classes.Tablero;
 
 /**
  * @author ToniMinarro (antonio_jose91@hotmail.es)
@@ -59,14 +59,12 @@ public class TwinsGame extends javax.swing.JFrame {
         Deck twinsDeck = new Deck();
         twinsDeck.createTwinsDeck();
         
-        ArrayList<Integer> d = Funciones.dameDivisoresIntermedios(twinsDeck.getSize());
+        ArrayList<Integer> divisores = Funciones.dameDivisoresIntermedios(twinsDeck.getSize());
 
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
-        this.add(new TestPane(d.get(0),d.get(1)));
+        this.add(new Tablero(divisores, twinsDeck));
         this.pack();
         this.setLocationRelativeTo(null);
-        this.setVisible(true);
     }
     
     public static void main(String args[]) {

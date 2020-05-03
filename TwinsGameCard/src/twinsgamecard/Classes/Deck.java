@@ -19,6 +19,9 @@ public class Deck {
     public void removeCard(Card card) { this.deck.remove(card); }
     public int getSize() { return size; }
     public void setSize(int size) { this.size = size; }
+    public ArrayList<Card> getDeck() { return deck; }
+    public void setDeck(ArrayList<Card> deck) { this.deck = deck; }
+    
     
     public void createTwinsDeck() {
         this.createTwinsDeck(40, 5);
