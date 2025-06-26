@@ -6,13 +6,29 @@ import java.awt.GridBagLayout;
 import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
+import java.awt.Font; // For score label font
 
 public class Tablero extends JPanel
 {
+    private static int currentScore = 0;
+    private static JLabel scoreLabel; // Static to be accessed by Celda indirectly or via methods
+
     public Tablero(ArrayList<Integer> divisores, Deck twinsDeck)
     {
+        // Initialize score and label for a new game
+        currentScore = 0;
+        if (scoreLabel == null) { // Create it only once, or update if it exists
+            scoreLabel = new JLabel("Score: 0", SwingConstants.CENTER);
+            scoreLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        } else {
+            updateScoreDisplay(); // Ensure it's reset if Tablero is recreated
+        }
+        // The scoreLabel will be added to the main frame (TwinsGame) later.
+        // This constructor just ensures it's ready.
+
         int row = divisores.get(0);
         int col = divisores.get(1);
 
@@ -51,11 +67,10 @@ public class Tablero extends JPanel
                 int valor = twinsDeck.getDeck().get(0).getValue();
                 twinsDeck.getDeck().remove(0); // Remove card after use
 
-                Celda cellPane = new Celda(cellSize, valor);
+                Celda cellPane = new Celda(cellSize, valor); // valor is the card's ID
 
-                JLabel label = new JLabel(String.valueOf(valor));
-                label.setVisible(false); // Initially hide the card's value
-                cellPane.add(label);
+                // The JLabel that will hold the image is now created and managed within Celda constructor
+                // based on 'valor'. We don't create the JLabel here anymore.
 
                 // Define border for the cell
                 Border border = (r < row-1) ?
@@ -65,5 +80,33 @@ public class Tablero extends JPanel
                 add(cellPane, gbc);
             }
         }
+    }
+
+    public static void addScore(int points) {
+        currentScore += points;
+        if (currentScore < 0) {
+            currentScore = 0; // Score should not go below 0
+        }
+        updateScoreDisplay();
+    }
+
+    public static void resetScore() {
+        currentScore = 0;
+        updateScoreDisplay();
+    }
+
+    private static void updateScoreDisplay() {
+        if (scoreLabel != null) {
+            scoreLabel.setText("Score: " + currentScore);
+        }
+    }
+
+    // Method to get the score label to add it to the main frame
+    public static JLabel getScoreLabel() {
+        if (scoreLabel == null) { // Ensure it's initialized if accessed before constructor
+            scoreLabel = new JLabel("Score: 0", SwingConstants.CENTER);
+            scoreLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        }
+        return scoreLabel;
     }
 }
