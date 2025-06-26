@@ -61,6 +61,19 @@ public class Deck {
         // For example, a deck of 40 cards will have 20 unique card values (pairs).
         int totalUniqueCards = this.size / twinSize;
 
+        if (totalUniqueCards > ImageLoader.getNumberOfUniqueImages()) {
+            System.err.println("Error: Not enough unique images (" + ImageLoader.getNumberOfUniqueImages() +
+                               ") for the required number of unique cards (" + totalUniqueCards +
+                               "). Reduce deck size or add more image URLs.");
+            // Potentially throw an exception or reduce deck size automatically
+            // For now, we'll proceed, but some cards might not have images or share images incorrectly.
+            // A better approach would be to cap totalUniqueCards or throw.
+            // Let's cap it for safety, though this alters game size.
+            totalUniqueCards = ImageLoader.getNumberOfUniqueImages();
+            this.size = totalUniqueCards * twinSize;
+            System.err.println("Adjusted deck size to " + this.size + " to match available images.");
+        }
+
         this.deck = new ArrayList<>(); // Initialize the deck
 
         // Create the pairs of cards

@@ -62,7 +62,13 @@ public class TwinsGame extends javax.swing.JFrame {
         ArrayList<Integer> divisores = Funciones.dameDivisoresIntermedios(twinsDeck.getSize());
 
         this.setLayout(new BorderLayout());
-        this.add(new Tablero(divisores, twinsDeck));
+
+        Tablero tablero = new Tablero(divisores, twinsDeck);
+        JLabel scoreLabel = Tablero.getScoreLabel(); // Get the score label from Tablero
+
+        this.add(scoreLabel, BorderLayout.NORTH); // Add score label at the top
+        this.add(tablero, BorderLayout.CENTER); // Add game board in the center
+
         this.pack();
         this.setLocationRelativeTo(null);
     }
